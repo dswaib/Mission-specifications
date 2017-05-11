@@ -4,13 +4,13 @@ grammar eng;
 	package co4robots.engparser;
 }
 
-eng : mitli | ltl;
+eng : mitli;// | ltl;
 mitli : 'mitli';
 
-ltl : globallyp;			
+//ltl : globallyp;			
 
 
-
+/* 
 	 
 
 globallyp: universalityp ; 
@@ -18,7 +18,7 @@ globallyp: universalityp ;
 universalityp:  'Globally, it is always the case that' event 'holds';
 event: ID;
 
-OP: '<' | '>' | '==' | '<=' | '>=';
+//OP: '<' | '>' | '==' | '<=' | '>=';
 
 
 TRUE: 'true';
@@ -37,3 +37,6 @@ ID:  ATOMInit (ATOMInit | INT | '_' | '.')*;
 NEWLINE:'\r'? '\n' ;
 WS  :   (' '|'\t' | '\n')+ {skip();} ;
 COMMENT: '#'~('\r' | '\n')* {skip();} ;
+
+
+*/
