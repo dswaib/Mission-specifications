@@ -764,6 +764,7 @@ public class Co4robotsGUI extends javax.swing.JFrame implements PSPController
     private javax.swing.JPanel patternJPanel;
     private javax.swing.JPanel optionJPanel;
     private javax.swing.JPanel jPanelLogo;
+   //ds,ald,
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel propertyPanel;
     private javax.swing.JPanel eventJPanel;

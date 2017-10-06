@@ -68,6 +68,14 @@ public interface PatternPanelFeatures extends PanelFeatures
     public static final int PP_ResponseChainN1    = 0x0040;
     public static final int PP_ResponseInvariance = 0x0080;
 
+    //movement
+    public static final int PP_Movements           = 0x0004;
+
+    public static final int PP_PastAvoidance       = 0x0001;
+    public static final int PP_GlobalAvoidance     = 0x0002;
+    public static final int PP_FutureAvoidance     = 0x0004;
+    
+    
     public Pattern getSelectedPattern();
 
     public void setSelectedPattern( Pattern aSelectedPattern );

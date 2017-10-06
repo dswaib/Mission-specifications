@@ -74,7 +74,12 @@ public abstract class Pattern
                                         "Response",
                                         "ResponseChain1N",
                                         "ResponseChainN1",
-                                        "ResponseInvariance"
+                                        "ResponseInvariance",
+                                        //movement
+                                        "PastAvoidance",
+                                        "GlobalAvoidance",
+                                        "FutureAvoidance"
+                                        
                                };
     
     public String toString()     

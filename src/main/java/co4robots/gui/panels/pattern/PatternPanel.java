@@ -140,6 +140,25 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
                     }
                     lTargetPanel = (PatternPanelFeatures)fOrderPattern.getSelectedComponent();
                     break;
+                 //tabs for conditional avoidance   
+                case PSPConstants.PC_Movements:
+                    switch ( fSelectedPattern.getType() )
+                    {
+                        case PSPConstants.P_PastAvoidance:
+                            fMovementsPattern.setSelectedIndex( 18 );
+                            break;
+                        case PSPConstants.P_GlobalAvoidance:
+                            fMovementsPattern.setSelectedIndex( 19 );
+                            break;
+                        case PSPConstants.P_FutureAvoidance:
+                            fMovementsPattern.setSelectedIndex( 20 );
+                            break;
+                        
+                    }
+                    lTargetPanel = (PatternPanelFeatures)fMovementsPattern.getSelectedComponent();
+                    break;
+                    
+                    
             }
         
             if ( lTargetPanel != null )
@@ -170,6 +189,11 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChainN1.clearSelection();
         fResponseInveriance.clearSelection();
         
+        //movements
+        fPastAvoidance.clearselection();
+        fGlobalAvoidance.clearselection();
+        fFutureAvoidance.clearselection();
+        
         // set selected pattern
         setSelectedPattern( null );
     }
@@ -198,6 +222,11 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChain1N.setController( fPSPController );
         fResponseChainN1.setController( fPSPController );
         fResponseInveriance.setController( fPSPController );
+        
+        //Movements
+        fPastAvoidance.setController( fPSPController );
+        fGlobalAvoidance.setController( fPSPController );
+        fFutureAvoidance.setController( fPSPController );
     }
 
     public void updateEvents() 
@@ -222,6 +251,11 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChain1N.updateEvents();
         fResponseChainN1.updateEvents();
         fResponseInveriance.updateEvents();
+        
+        //movements
+        fPastAvoidance.updateEvents();
+        fGlobalAvoidance.updateEvents();
+        fFutureAvoidance.updateEvents();
     }
 
     /**
@@ -256,6 +290,11 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChainN1 = new co4robots.gui.panels.pattern.order.ScrollableResponseChainN1Panel();
         fResponseInveriance = new co4robots.gui.panels.pattern.order.ScrollableResponseInveriancePanel();
 
+        fMovements = new javax.swing.JPanel();
+        fMovementsPattern = new javax.swing.JTabbedPane();
+        fPastAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollablePastAvoidancePanel();
+        fGlobalAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollableGlobalAvoidancePanel();
+        fFutureAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollableFutureAvoidancePanel();
         
         fCategories.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
         fOccurrence.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
@@ -280,6 +319,12 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChainN1.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
         fResponseInveriance.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
 
+        fMovements.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+        fMovementsPattern.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+        fPastAvoidance.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+        fGlobalAvoidance.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+        fFutureAvoidance.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+        
         
         fCategories.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -366,6 +411,53 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
                 .addComponent(fCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        
+        //movements
+        
+        fMovementsPattern.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                fOrderPatternStateChanged(evt);
+            }
+        });
+       fMovementsPattern.addTab("PastAvoidance", fPastAvoidance);
+       fMovementsPattern.addTab("GlobalAvoidance", fGlobalAvoidance);
+       fMovementsPattern.addTab("FutureAvoidance", fFutureAvoidance);
+
+        javax.swing.GroupLayout fMovementsLayout = new javax.swing.GroupLayout(fMovements);
+        fMovements.setLayout(fMovementsLayout);
+        fMovementsLayout.setHorizontalGroup(
+            fMovementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fMovementsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fMovementsPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        fMovementsLayout.setVerticalGroup(
+            fMovementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fMovementsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fMovementsPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+        );
+
+        fCategories.addTab("Movements", fMovements);
+
+        javax.swing.GroupLayout layout2 = new javax.swing.GroupLayout(this);
+        this.setLayout(layout2);
+        layout2.setHorizontalGroup(
+            layout2.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout2.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout2.setVerticalGroup(
+            layout2.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout2.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        
     }// </editor-fold>//GEN-END:initComponents
 
     private void fCategoriesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fCategoriesStateChanged
@@ -380,7 +472,10 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
                 break;
             case 1: // Order
                 lPatternPanel = (PatternPanelFeatures)fOrderPattern.getSelectedComponent();
-                break;                
+                break;   
+            case 2: // Movements
+                lPatternPanel = (PatternPanelFeatures)fMovementsPattern.getSelectedComponent();
+                break;          
         }
         
         if ( lPatternPanel != null )
@@ -420,6 +515,20 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         }
     }//GEN-LAST:event_fOrderPatternStateChanged
 
+    private void fMovementsPatternStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fOrderPatternStateChanged
+        // switch Movements pattern
+
+        PatternPanelFeatures lPatternPanel = (PatternPanelFeatures)fMovementsPattern.getSelectedComponent();
+        
+        if ( lPatternPanel != null )
+        {
+            fSelectedPattern = lPatternPanel.getSelectedPattern();
+    
+            if ( fPSPController != null )
+                fPSPController.updatePattern();
+        }
+    }//GEN-LAST:event_fMovementsPatternStateChanged
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private co4robots.gui.panels.pattern.occurrence.ScrollableAbsencePanel fAbsence;
     private co4robots.gui.panels.pattern.occurrence.ScrollableBoundedExistencePanel fBoundedExistence;
@@ -431,6 +540,13 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
     private javax.swing.JTabbedPane fOccurrencePattern;
     private javax.swing.JPanel fOrder;
     private javax.swing.JTabbedPane fOrderPattern;
+    
+    private javax.swing.JPanel fMovements;
+    private javax.swing.JTabbedPane fMovementsPattern;
+    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedencePanel fPastAvoidance;
+    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedenceChain1NPanel fGlobalAvoidance;
+    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedenceChainN1Panel fFutureAvoidance;
+    
     private co4robots.gui.panels.pattern.order.ScrollablePrecedencePanel fPrecedence;
     private co4robots.gui.panels.pattern.order.ScrollablePrecedenceChain1NPanel fPrecedenceChain1N;
     private co4robots.gui.panels.pattern.order.ScrollablePrecedenceChainN1Panel fPrecedenceChainN1;
@@ -444,4 +560,6 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
     private co4robots.gui.panels.pattern.occurrence.ScrollableUniversalityPanel fUniversality;
     private co4robots.gui.panels.pattern.order.ScrollableUntilPanel fUntil;
     // End of variables declaration//GEN-END:variables
+    
+    
 }

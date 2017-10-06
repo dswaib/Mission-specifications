@@ -29,3 +29,4 @@ build/*
 gradle/*
 target/*
 nbproject/*
+/bin/

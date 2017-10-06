@@ -14,6 +14,7 @@ public class PSPConstants
     // Pattern Class
     public static final int PC_Occurrence = 1;
     public static final int PC_Order = 2;
+    public static final int PC_Movements = 3;//movement patterns tab
 
     // Occurrence
     public static final int P_Universality = 1;
@@ -39,7 +40,13 @@ public class PSPConstants
     public static final int P_ResponseInvariance = 17;
 
     public final int P_LastOrder = P_ResponseInvariance;
-
+    
+ // movement
+    public static final int P_PastAvoidance =18;
+    public static final int P_GlobalAvoidance = 19;
+    public static final int P_FutureAvoidance = 20;
+    
+    public final int P_LastMovements = P_FutureAvoidance;
     // Constraints
     public static final int C_Event = 1;
     public static final int C_Time = 2;

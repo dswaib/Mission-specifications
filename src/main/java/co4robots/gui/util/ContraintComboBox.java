@@ -97,7 +97,7 @@ public class ContraintComboBox extends JComboBox
         updateEvents();
     }
     
-    // add scope or pattern events (to distinguisj between available events)
+    // add scope or pattern events (to distinguish between available events)
     public void updateEvents()
     {
         if ( fPSPController != null )
