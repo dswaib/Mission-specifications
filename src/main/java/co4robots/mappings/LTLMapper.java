@@ -42,6 +42,9 @@ import co4robots.constraints.EventConstraint;
 import co4robots.engine.PSPConstants;
 import co4robots.sel.Event;
 import co4robots.sel.patterns.Pattern;
+import co4robots.sel.patterns.movements.FutureAvoidance;
+import co4robots.sel.patterns.movements.GlobalAvoidance;
+import co4robots.sel.patterns.movements.PastAvoidance;
 import co4robots.sel.patterns.occurrence.*;
 import co4robots.sel.patterns.order.*;
 import co4robots.sel.scopes.Scope;
@@ -99,6 +102,14 @@ public class LTLMapper extends GenericMapper
                     return mapAbsence( aScope, (Absence)aPattern );
                 case PSPConstants.P_Existence:
                     return mapExistence( aScope, (Existence)aPattern );
+               //movements patterns     
+                case PSPConstants.P_PastAvoidance:
+                    return mapPastAvoidance( aScope, (PastAvoidance)aPattern );
+                case PSPConstants.P_GlobalAvoidance:
+                    return mapGlobalAvoidance( aScope, (GlobalAvoidance)aPattern );
+                case PSPConstants.P_FutureAvoidance:
+                    return mapFutureAvoidance( aScope, (FutureAvoidance)aPattern );
+                    
                 case PSPConstants.P_BoundedExistence:
                 case PSPConstants.P_TransientState:
                 case PSPConstants.P_SteadyState:
@@ -2107,6 +2118,300 @@ public class LTLMapper extends GenericMapper
        
         return sb.toString();
     }
+    
+    //movement patterns mapping
+    private String mapPastAvoidance( Scope aScope, PastAvoidance aPattern )
+    {   
+        StringBuilder sb = new StringBuilder();
+
+        switch ( aScope.getType() )
+        {
+            case PSPConstants.S_Globally:
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                break;
+            case PSPConstants.S_BeforeR:
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQ:
+                sb.append( lAlways );
+                sb.append( lNot );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lOr );
+                sb.append( lEventually );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_BetweenQandR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aScope.getR().getAsEvent() );        
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQuntilR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lU );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+        }
+        
+        return sb.toString();
+    }
+    private String mapGlobalAvoidance( Scope aScope, GlobalAvoidance aPattern )
+    {   
+        StringBuilder sb = new StringBuilder();
+
+        switch ( aScope.getType() )
+        {
+            case PSPConstants.S_Globally:
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                break;
+            case PSPConstants.S_BeforeR:
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQ:
+                sb.append( lAlways );
+                sb.append( lNot );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lOr );
+                sb.append( lEventually );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_BetweenQandR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aScope.getR().getAsEvent() );        
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQuntilR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lU );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+        }
+        
+        return sb.toString();
+    }
+    private String mapFutureAvoidance( Scope aScope, FutureAvoidance aPattern )
+    {   
+        StringBuilder sb = new StringBuilder();
+
+        switch ( aScope.getType() )
+        {
+            case PSPConstants.S_Globally:
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                break;
+            case PSPConstants.S_BeforeR:
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQ:
+                sb.append( lAlways );
+                sb.append( lNot );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lOr );
+                sb.append( lEventually );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_BetweenQandR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lEventually );
+                sb.append( " " );
+                sb.append( aScope.getR().getAsEvent() );        
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lW );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+            case PSPConstants.S_AfterQuntilR:
+                sb.append( lAlways );
+                sb.append( "(" );
+                sb.append( "(" );
+                sb.append( aScope.getQ().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lAlways );
+                sb.append( " " );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( lArrow );
+                sb.append( "(" );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( lU );
+                sb.append( " " );
+                sb.append( "(" );
+                sb.append( aPattern.getP().getAsEvent() );
+                sb.append( lAnd );
+                sb.append( lNot );
+                sb.append( aScope.getR().getAsEvent() );
+                sb.append( ")" );
+                sb.append( ")" );
+                sb.append( ")" );
+                break;
+        }
+        
+        return sb.toString();
+    }
+    
     
     public String getNotSupportedMessage()
     {

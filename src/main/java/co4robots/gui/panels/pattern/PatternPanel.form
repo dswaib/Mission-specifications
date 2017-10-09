@@ -268,9 +268,11 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-              </SubComponents>
-              
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+              </SubComponents>  
+            </Container>
+          </SubComponents>
+        
+        <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="fMovements">
           <Constraints>
@@ -291,7 +293,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fOccurrencePattern" pref="394" max="32767" attributes="0"/>
+                      <Component id="fMovementsPattern" pref="394" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -332,12 +334,8 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                
-              
-              
-              
-            </Container>
-          </SubComponents>
+        
+        
         
         </Container>
       </SubComponents>

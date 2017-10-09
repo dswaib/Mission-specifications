@@ -43,6 +43,7 @@ import co4robots.engine.PSPConstants;
 import co4robots.engine.PSPController;
 import co4robots.sel.patterns.Pattern;
 
+
 public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeatures
 {
     private PSPController fPSPController;
@@ -145,13 +146,13 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
                     switch ( fSelectedPattern.getType() )
                     {
                         case PSPConstants.P_PastAvoidance:
-                            fMovementsPattern.setSelectedIndex( 18 );
+                            fMovementsPattern.setSelectedIndex( 0);
                             break;
                         case PSPConstants.P_GlobalAvoidance:
-                            fMovementsPattern.setSelectedIndex( 19 );
+                            fMovementsPattern.setSelectedIndex( 1 );
                             break;
                         case PSPConstants.P_FutureAvoidance:
-                            fMovementsPattern.setSelectedIndex( 20 );
+                            fMovementsPattern.setSelectedIndex( 2 );
                             break;
                         
                     }
@@ -189,10 +190,10 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
         fResponseChainN1.clearSelection();
         fResponseInveriance.clearSelection();
         
-        //movements
-        fPastAvoidance.clearselection();
-        fGlobalAvoidance.clearselection();
-        fFutureAvoidance.clearselection();
+        //Movements
+        //fPastAvoidance.clearSelection();
+        //fGlobalAvoidance.clearSelection();
+        //fFutureAvoidance.clearSelection();
         
         // set selected pattern
         setSelectedPattern( null );
@@ -292,9 +293,9 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
 
         fMovements = new javax.swing.JPanel();
         fMovementsPattern = new javax.swing.JTabbedPane();
-        fPastAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollablePastAvoidancePanel();
-        fGlobalAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollableGlobalAvoidancePanel();
-        fFutureAvoidance = new co4robots.gui.panels.pattern.Movements.ScrollableFutureAvoidancePanel();
+        fPastAvoidance = new co4robots.gui.panels.pattern.movements.ScrollablePastAvoidancePanel();
+        fGlobalAvoidance = new co4robots.gui.panels.pattern.movements.ScrollableGlobalAvoidancePanel();
+        fFutureAvoidance = new co4robots.gui.panels.pattern.movements.ScrollableFutureAvoidancePanel();
         
         fCategories.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
         fOccurrence.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
@@ -541,12 +542,7 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
     private javax.swing.JPanel fOrder;
     private javax.swing.JTabbedPane fOrderPattern;
     
-    private javax.swing.JPanel fMovements;
-    private javax.swing.JTabbedPane fMovementsPattern;
-    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedencePanel fPastAvoidance;
-    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedenceChain1NPanel fGlobalAvoidance;
-    private co4robots.gui.panels.pattern.Movements.ScrollablePrecedenceChainN1Panel fFutureAvoidance;
-    
+   
     private co4robots.gui.panels.pattern.order.ScrollablePrecedencePanel fPrecedence;
     private co4robots.gui.panels.pattern.order.ScrollablePrecedenceChain1NPanel fPrecedenceChain1N;
     private co4robots.gui.panels.pattern.order.ScrollablePrecedenceChainN1Panel fPrecedenceChainN1;
@@ -559,6 +555,13 @@ public class PatternPanel extends javax.swing.JPanel implements PatternPanelFeat
     private co4robots.gui.panels.pattern.occurrence.ScrollableTransientStatePanel fTransientState;
     private co4robots.gui.panels.pattern.occurrence.ScrollableUniversalityPanel fUniversality;
     private co4robots.gui.panels.pattern.order.ScrollableUntilPanel fUntil;
+    
+    private javax.swing.JPanel fMovements;
+    private javax.swing.JTabbedPane fMovementsPattern;
+    private co4robots.gui.panels.pattern.movements.ScrollablePastAvoidancePanel fPastAvoidance;
+    private co4robots.gui.panels.pattern.movements.ScrollableGlobalAvoidancePanel fGlobalAvoidance;
+    private co4robots.gui.panels.pattern.movements.ScrollableFutureAvoidancePanel fFutureAvoidance;
+    
     // End of variables declaration//GEN-END:variables
     
     
